@@ -145,9 +145,9 @@ def reconstruct_path(percorrido, atual, draw):
         atual = percorrido[atual]
         #print(f"[{atual.row}, {atual.col}]")
         caminho.append([atual.row, atual.col])
-        atual.make_path()
-        draw()
-
+        #atual.make_path()
+        
+    draw()
     atual.start()
     return caminho
 
@@ -195,7 +195,7 @@ def algorithm(draw, grid, start, end):
                     open_set_hash.add(neighbor)
                     #neighbor.make_open()
 
-        draw()
+        #draw()
 
         #if current != start:
             #current.make_closed()
@@ -286,30 +286,35 @@ def test(draw, grid, start, end, way, way_end):
                 
                 formated_matrix = formated_matrix + f'[S],'
                 start = node
+                continue
                 
             elif node.color == TURQUOISE:
                 
                 formated_matrix = formated_matrix + f'[E],'
                 end = node
+                continue
                 
             elif node.color == BLUE:
                 
                 node.reset()
                 formated_matrix = formated_matrix + f'[-],'
+                continue
                 
             elif node.color == WHITE:
                 
                 formated_matrix = formated_matrix + f'[|],'
+                continue
             
             else:
                 formated_matrix = formated_matrix + f'[0],'
+                continue
                 
         formated_matrix = formated_matrix + f'\n'  
         format_grid.append(row)
         row = []
         
-    #print(formated_matrix)
-    #print(way)
+    print(formated_matrix)
+    print(way)
 
     nei = []
     
@@ -320,19 +325,19 @@ def test(draw, grid, start, end, way, way_end):
     except:
         pass
     end = grid[way_end[-1][0]][way_end[-1][1]]
-    #print(end, end.neighbors)
+    print(end, end.neighbors)
     
     for nei in end.neighbors:
         n = nei.g + nei.h
         next.append([n,nei])
-        #print(nei)
+        print(nei)
     
     worst_max = max(next)
-    #print(worst_max[1], 'aq')
+    print(worst_max[1], 'aq')
     #input('<<<')
     
 
-    
+    count = 0
     while True:
         
         if len(way) == 0:
@@ -356,7 +361,7 @@ def test(draw, grid, start, end, way, way_end):
                             input('erro aq')
                         
                         
-                        draw()
+                        #draw()
                         #input('wait')
                         #print(way, worst_max[1], '<<<')
                         
@@ -372,6 +377,12 @@ def test(draw, grid, start, end, way, way_end):
                                 
                         
                         return 0, start, ne
+                        
+                    else:
+                        count+= 1
+                        print('test while', count)
+
+                        continue
                     
                 else:
                     
@@ -458,7 +469,7 @@ def read_from_file(file_path, grid):
         return s, e
 def main(win, width):
     pygame.font.init()
-    ROWS = 10
+    ROWS = 8
     grid = make_grid(ROWS, width)
 
     start = None
